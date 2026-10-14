@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daniel jamt on the guitar</title>
+<meta name="description" content="Gitarre lernen ohne Noten: Akkorde, Wechsel, Rhythmus, Stimmgerät und Song-Modus.">
+<meta name="theme-color" content="#1c1410">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Daniel jamt">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root {
+  --bg: #1c1410;
+  --flaeche: #2a1f19;
+  --flaeche2: #352820;
+  --rand: #4a392e;
+  --text: #f6ece2;
+  --leise: #c2ad9b;
+  --akzent: #f2a541;
+  --akzent-dunkel: #b8741b;
+  --gruen: #5fd08c;
+  --rot: #ef6a5b;
+  --f1: #4f9df7;   /* Zeigefinger */
+  --f2: #3fcf8e;   /* Mittelfinger */
+  --f3: #f59e3b;   /* Ringfinger */
+  --f4: #c084fc;   /* kleiner Finger */
+  color-scheme: dark;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
+body {
+  font-family: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse at 50% -10%, #3a2a1f 0%, transparent 60%);
+  color: var(--text); font-size: 17px; line-height: 1.5; min-height: 100vh;
+}
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--akzent); outline-offset: 2px; }
+a { color: var(--akzent); }
+
+/* Kopf und Navigation */
+.kopf { position: sticky; top: 0; z-index: 20; background: rgba(28, 20, 16, .94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rand); padding-top: env(safe-area-inset-top); }
+.kopf-innen { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 14px 6px; }
+.logo { font-weight: 900; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
+.logo span { font-size: 1.5rem; }
+.nav { max-width: 980px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; padding: 0 10px 8px; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav button { white-space: nowrap; padding: 8px 14px; border-radius: 999px; color: var(--leise); font-weight: 700; font-size: .95rem; }
+.nav button.aktiv { background: var(--akzent); color: #1c1410; }
+.einst { margin-left: auto; display: flex; gap: 6px; align-items: center; font-size: .85rem; color: var(--leise); }
+.schalter { padding: 6px 12px; border-radius: 999px; background: var(--flaeche2); border: 1px solid var(--rand); font-weight: 700; font-size: .85rem; }
+
+main { max-width: 980px; margin: 0 auto; padding: 18px 14px 60px; }
+h1 { font-size: clamp(1.6rem, 4.5vw, 2.3rem); line-height: 1.15; margin: 0 0 6px; }
+h2 { font-size: 1.3rem; margin: 0 0 8px; }
+h3 { font-size: 1.05rem; margin: 0 0 6px; }
+p { margin: 0 0 10px; }
+.leise { color: var(--leise); }
+.klein { font-size: .88rem; }
+.karte { background: var(--flaeche); border: 1px solid var(--rand); border-radius: 20px; padding: 18px; margin-bottom: 16px; }
+.raster { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.knopf { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 20px; border-radius: 14px; background: var(--akzent); color: #1c1410; font-weight: 900; box-shadow: 0 4px 0 var(--akzent-dunkel); }
+.knopf:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--akzent-dunkel); }
+.knopf.zweit { background: var(--flaeche2); color: var(--text); box-shadow: 0 4px 0 #120d0a; border: 1px solid var(--rand); }
+.knopf.gross { font-size: 1.25rem; min-height: 60px; padding: 12px 28px; }
+.reihe { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* Start: Lernweg */
+.held { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; align-items: center; margin-bottom: 18px; }
+.held svg { width: 100%; height: auto; }
+.weg { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.weg li { display: flex; align-items: center; gap: 12px; background: var(--flaeche); border: 1px solid var(--rand); border-radius: 16px; padding: 12px 14px; }
+.weg .nr { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 900; background: var(--flaeche2); border: 2px solid var(--rand); }
+.weg li.erledigt .nr { background: var(--gruen); color: #10241a; border-color: var(--gruen); }
+.weg .was { flex: 1; }
+.weg .was strong { display: block; }
+.weg .was span { color: var(--leise); font-size: .9rem; }
+.haken { width: 40px; height: 40px; border-radius: 12px; border: 2px solid var(--rand); font-size: 1.2rem; flex: none; }
+.weg li.erledigt .haken { background: var(--gruen); border-color: var(--gruen); color: #10241a; }
+.info-lied { border-left: 5px solid var(--akzent); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 6px 14px; border-radius: 999px; background: var(--flaeche2); border: 2px solid var(--rand); font-weight: 900; }
+.chip.aktiv { border-color: var(--akzent); background: #4a3218; }
+
+/* Griffbild */
+.griff { width: 100%; height: auto; display: block; }
+.griff .holz { fill: #5a3b22; }
+.griff .bundstab { stroke: #c9c2b4; stroke-width: 2.5; }
+.griff .sattel { fill: #efe6d2; }
+.griff .saite { stroke: #e9dcc4; stroke-linecap: round; }
+.griff .saite.schwingt { animation: schwingen .5s ease-out; }
+@keyframes schwingen { 0%, 100% { transform: translateY(0); } 20% { transform: translateY(1.6px); } 40% { transform: translateY(-1.4px); } 60% { transform: translateY(.8px); } 80% { transform: translateY(-.4px); } }
+.griff .beschr { fill: var(--leise); font-size: 13px; font-weight: 800; font-family: inherit; }
+.griff .markpunkt { fill: #3e2817; }
+.f1 { fill: var(--f1); } .f2 { fill: var(--f2); } .f3 { fill: var(--f3); } .f4 { fill: var(--f4); }
+.legende { display: flex; flex-wrap: wrap; gap: 12px; font-size: .9rem; color: var(--leise); }
+.legende i { display: inline-block; width: 16px; height: 16px; border-radius: 50%; vertical-align: -3px; margin-right: 5px; }
+.akkord-karte { text-align: left; }
+.akkord-kopf { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.akkord-kopf .name { font-size: 2rem; font-weight: 900; }
+.akkord-auswahl { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.akkord-auswahl button { min-width: 64px; padding: 10px 14px; border-radius: 14px; background: var(--flaeche2); border: 2px solid var(--rand); font-weight: 900; font-size: 1.1rem; }
+.akkord-auswahl button.aktiv { border-color: var(--akzent); background: #4a3218; }
+.akkord-auswahl button.lied::after { content: " ★"; color: var(--akzent); font-size: .8rem; }
+.schritte { padding-left: 1.2em; margin: 8px 0 0; }
+.schritte li { margin: 4px 0; }
+
+/* Trainer */
+.trainer { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; align-items: center; }
+.jetzt .name { font-size: clamp(3rem, 12vw, 5.5rem); font-weight: 900; line-height: 1; color: var(--akzent); }
+.naechster { opacity: .75; }
+.naechster .name { font-size: 2rem; font-weight: 900; }
+.schlaege { display: flex; gap: 10px; justify-content: center; margin: 14px 0; }
+.schlaege i { width: 26px; height: 26px; border-radius: 50%; background: var(--flaeche2); border: 2px solid var(--rand); }
+.schlaege i.an { background: var(--akzent); border-color: var(--akzent); transform: scale(1.15); }
+.schlaege i.eins.an { background: var(--gruen); border-color: var(--gruen); }
+.regler { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.regler input[type=range] { flex: 1; min-width: 160px; accent-color: var(--akzent); height: 32px; }
+.regler output { font-weight: 900; min-width: 76px; font-variant-numeric: tabular-nums; }
+select, textarea, input[type=number] { font: inherit; color: var(--text); background: var(--flaeche2); border: 1px solid var(--rand); border-radius: 12px; padding: 10px 12px; }
+
+/* Rhythmus */
+.muster { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin: 14px 0; }
+.muster div { aspect-ratio: .8; border-radius: 14px; background: var(--flaeche2); border: 2px solid var(--rand); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; }
+.muster .pfeil { font-size: clamp(1.4rem, 6vw, 2.6rem); line-height: 1; }
+.muster .zaehl { font-size: .85rem; color: var(--leise); }
+.muster div.leer .pfeil { opacity: .2; }
+.muster div.an { border-color: var(--akzent); background: #4a3218; transform: scale(1.06); }
+
+/* Stimmen */
+.saiten-knoepfe { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.saiten-knoepfe button { padding: 14px 4px; border-radius: 14px; background: var(--flaeche2); border: 2px solid var(--rand); font-weight: 900; font-size: 1.3rem; }
+.saiten-knoepfe small { display: block; font-size: .7rem; color: var(--leise); font-weight: 700; }
+.saiten-knoepfe button.aktiv { border-color: var(--akzent); }
+.stimmer { text-align: center; }
+.stimmer .note { font-size: 4rem; font-weight: 900; line-height: 1; }
+.stimmer .rat { font-size: 1.2rem; font-weight: 800; min-height: 1.6em; }
+.stimmer svg { width: 100%; max-width: 420px; height: auto; }
+
+/* Song */
+textarea { width: 100%; min-height: 220px; font-family: ui-monospace, Menlo, monospace; font-size: .95rem; line-height: 1.5; }
+.blatt { font-family: ui-monospace, Menlo, monospace; white-space: pre-wrap; font-size: 1.05rem; line-height: 1.4; }
+.blatt .zeile { margin-bottom: 6px; }
+.blatt .akk-zeile { color: var(--akzent); font-weight: 900; }
+.blatt .teil { font-family: inherit; font-weight: 900; color: var(--gruen); margin-top: 14px; }
+.blatt .akk { cursor: pointer; text-decoration: underline dotted; }
+.blatt.gross { font-size: 1.35rem; }
+.song-akkorde { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.mini { background: var(--flaeche2); border: 1px solid var(--rand); border-radius: 14px; padding: 8px; text-align: center; }
+.mini .name { font-weight: 900; font-size: 1.2rem; }
+.hinweis { background: #3b2c12; border: 1px solid #6b4f1c; border-radius: 14px; padding: 10px 14px; font-size: .93rem; }
+
+.popup { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; padding: 16px; }
+.popup.an { display: flex; }
+.popup .karte { max-width: 520px; width: 100%; margin: 0; }
+
+@media (max-width: 720px) {
+  .held, .trainer { grid-template-columns: 1fr; }
+  .saiten-knoepfe { grid-template-columns: repeat(3, 1fr); }
+  .einst .text { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="kopf">
+  <div class="kopf-innen">
+    <div class="logo"><span aria-hidden="true">🎸</span> Daniel jamt on the guitar</div>
+    <div class="einst">
+      <span class="text">Ansicht:</span>
+      <button class="schalter" id="ansichtKnopf"></button>
+      <button class="schalter" id="handKnopf"></button>
+    </div>
+  </div>
+  <nav class="nav" id="nav"></nav>
+</header>
+<main id="bild"></main>
+<div class="popup" id="popup"></div>
+
+<script>
+'use strict';
+// =====================================================================
+//  Daniel jamt on the guitar – Gitarre lernen ohne Noten
+//  Akkorde mit Farbfingern, Wechsel-Trainer, Rhythmus, Stimmgerät,
+//  Song-Modus für eigene Akkordblätter. Alles bleibt auf dem Gerät.
+// =====================================================================
+
+const bild = document.getElementById('bild');
+
+// ---------- Einstellungen ----------
+const SPEICHER = 'gitarren-coach-v1';
+let E = {
+  ansicht: 'quer',          // 'quer' = so wie du auf den Hals schaust, 'hoch' = klassisches Akkord-Diagramm
+  links: false,             // Linkshänder-Gitarre
+  erledigt: {},
+  tempo: 60,
+  takt: 4,
+  paar: ['C', 'G'],
+  rhythmus: 'pop',
+  songtext: '',
+  kapo: 1,
+};
+try { Object.assign(E, JSON.parse(localStorage.getItem(SPEICHER)) || {}); } catch { /* ohne Speicher */ }
+function sichern() { try { localStorage.setItem(SPEICHER, JSON.stringify(E)); } catch { /* privates Fenster */ } }
+
+// ---------- Akkorde ----------
+// Reihenfolge der Saiten: tiefe E (6. Saite) … hohe e (1. Saite). null = nicht anschlagen, 0 = leer
+const SAITEN = ['E', 'A', 'D', 'G', 'H', 'e'];
+const AKKORDE = {
+  C:     { bund: [null, 3, 2, 0, 1, 0], finger: [0, 3, 2, 0, 1, 0], tipp: 'Die dicke E-Saite nicht mitspielen. Der Ringfinger liegt auf der A-Saite.' },
+  G:     { bund: [3, 2, 0, 0, 0, 3], finger: [2, 1, 0, 0, 0, 3], tipp: 'Alle sechs Saiten klingen. Die Finger stehen weit auseinander – Hand locker lassen.' },
+  Am:    { bund: [null, 0, 2, 2, 1, 0], finger: [0, 0, 2, 3, 1, 0], tipp: 'Fast wie E-Dur, nur eine Saite weiter unten. Die dicke E-Saite weglassen.' },
+  Am7:   { bund: [null, 0, 2, 0, 1, 0], finger: [0, 0, 2, 0, 1, 0], tipp: 'Wie Am, nur ohne Ringfinger – noch leichter!' },
+  F:     { bund: [null, null, 3, 2, 1, 1], finger: [0, 0, 3, 2, 1, 1], barre: { bund: 1, finger: 1, von: 4, bis: 5 }, tipp: 'Die „kleine“ F-Version: Der Zeigefinger drückt H- und e-Saite gleichzeitig. Nur die vier dünnen Saiten anschlagen.' },
+  Fmaj7: { bund: [null, null, 3, 2, 1, 0], finger: [0, 0, 3, 2, 1, 0], tipp: 'Die leichteste F-Variante zum Start: wie F, aber die hohe e-Saite bleibt frei.' },
+  D:     { bund: [null, null, 0, 2, 3, 2], finger: [0, 0, 0, 1, 3, 2], tipp: 'Nur die vier dünnen Saiten anschlagen.' },
+  Dm:    { bund: [null, null, 0, 2, 3, 1], finger: [0, 0, 0, 2, 3, 1], tipp: 'Nur die vier dünnen Saiten anschlagen.' },
+  E:     { bund: [0, 2, 2, 1, 0, 0], finger: [0, 2, 3, 1, 0, 0], tipp: 'Alle sechs Saiten klingen.' },
+  Em:    { bund: [0, 2, 2, 0, 0, 0], finger: [0, 2, 3, 0, 0, 0], tipp: 'Einer der leichtesten Akkorde: nur zwei Finger.' },
+  A:     { bund: [null, 0, 2, 2, 2, 0], finger: [0, 0, 1, 2, 3, 0], tipp: 'Drei Finger nebeneinander im 2. Bund.' },
+  G7:    { bund: [3, 2, 0, 0, 0, 1], finger: [3, 2, 0, 0, 0, 1], tipp: '' },
+  C7:    { bund: [null, 3, 2, 3, 1, 0], finger: [0, 3, 2, 4, 1, 0], tipp: '' },
+  A7:    { bund: [null, 0, 2, 0, 2, 0], finger: [0, 0, 2, 0, 3, 0], tipp: '' },
+  D7:    { bund: [null, null, 0, 2, 1, 2], finger: [0, 0, 0, 2, 1, 3], tipp: '' },
+  E7:    { bund: [0, 2, 0, 1, 0, 0], finger: [0, 2, 0, 1, 0, 0], tipp: '' },
+  Em7:   { bund: [0, 2, 0, 0, 0, 0], finger: [0, 2, 0, 0, 0, 0], tipp: '' },
+  Cmaj7: { bund: [null, 3, 2, 0, 0, 0], finger: [0, 3, 2, 0, 0, 0], tipp: '' },
+};
+// Die Akkorde für „One Call Away“ (mit Kapodaster im 1. Bund)
+const LIED_AKKORDE = ['C', 'G', 'Am', 'Am7', 'F', 'Fmaj7'];
+const FINGERNAME = { 1: 'Zeigefinger', 2: 'Mittelfinger', 3: 'Ringfinger', 4: 'kleiner Finger' };
+
+// Andere Schreibweisen erkennen (B → H usw.)
+function akkordFinden(name) {
+  if (!name) return null;
+  let n = name.trim().replace(/^H/, 'H');
+  if (AKKORDE[n]) return n;
+  const varianten = { Bm: null, 'A-': 'Am', Amin: 'Am', 'Am(7)': 'Am7', Fmaj: 'F', 'C/G': 'C', 'G/B': 'G', 'C/E': 'C', 'F/C': 'F', Gsus4: 'G', Csus2: 'C', Cadd9: 'C', Dsus4: 'D', Asus4: 'A', Asus2: 'A' };
+  if (n in varianten) return varianten[n];
+  const ohneBass = n.split('/')[0];
+  if (AKKORDE[ohneBass]) return ohneBass;
+  const kern = ohneBass.replace(/(sus\d|add\d+|maj9|9|6)$/, '');
+  return AKKORDE[kern] ? kern : null;
+}
+
+// ---------- Griffbild (SVG) ----------
+// quer: so, wie du beim Spielen auf den Hals schaust – dicke E-Saite oben, Kopf links (Linkshänder: rechts)
+function griffbild(name, opt = {}) {
+  const a = AKKORDE[name];
+  if (!a) return `<div class="leise">Für „${name}“ habe ich noch kein Griffbild.</div>`;
+  const quer = (opt.ansicht || E.ansicht) === 'quer';
+  const bunde = 4;
+  const id = 'g' + Math.random().toString(36).slice(2, 8);
+  let s = '';
+  if (quer) {
+    const W = 420, H = 190, x0 = 62, bw = 86, y0 = 28, sa = 26;
+    const xBund = (b) => x0 + b * bw, ySaite = (i) => y0 + i * sa;
+    s += `<rect class="holz" x="${x0}" y="${y0 - 12}" width="${bunde * bw + 10}" height="${5 * sa + 24}" rx="6"/>`;
+    s += `<circle class="markpunkt" cx="${xBund(2.5)}" cy="${ySaite(2.5)}" r="7"/>`;
+    for (let b = 1; b <= bunde; b++) s += `<line class="bundstab" x1="${xBund(b)}" y1="${y0 - 12}" x2="${xBund(b)}" y2="${ySaite(5) + 12}"/>`;
+    s += `<rect class="sattel" x="${x0 - 7}" y="${y0 - 14}" width="9" height="${5 * sa + 28}" rx="2"/>`;
+    SAITEN.forEach((n, i) => {
+      s += `<line class="saite" data-s="${i}" x1="${x0 - 2}" y1="${ySaite(i)}" x2="${xBund(bunde) + 10}" y2="${ySaite(i)}" stroke-width="${3.4 - i * 0.45}"/>`;
+      s += `<text class="beschr" x="12" y="${ySaite(i) + 5}">${n}</text>`;
+      const f = a.bund[i];
+      if (f === null) s += `<text x="40" y="${ySaite(i) + 6}" text-anchor="middle" font-size="19" font-weight="900" fill="#ef6a5b">✕</text>`;
+      else if (f === 0) s += `<circle cx="40" cy="${ySaite(i)}" r="7" fill="none" stroke="#5fd08c" stroke-width="3"/>`;
+    });
+    for (let b = 1; b <= bunde; b++) s += `<text class="beschr" x="${xBund(b - 0.5)}" y="${H - 4}" text-anchor="middle">${b}. Bund</text>`;
+    if (a.barre) {
+      const b = a.barre;
+      s += `<rect class="f${b.finger}" x="${xBund(b.bund - 0.5) - 13}" y="${ySaite(b.von) - 13}" width="26" height="${(b.bis - b.von) * sa + 26}" rx="13" opacity=".9"/>`;
+    }
+    a.bund.forEach((f, i) => {
+      if (!f) return;
+      const fi = a.finger[i];
+      s += `<circle class="f${fi}" cx="${xBund(f - 0.5)}" cy="${ySaite(i)}" r="13" stroke="#1c1410" stroke-width="2"/>`;
+      s += `<text x="${xBund(f - 0.5)}" y="${ySaite(i) + 5.5}" text-anchor="middle" font-size="15" font-weight="900" fill="#10141c">${fi}</text>`;
+    });
+    const spiegel = E.links ? `transform="translate(${W} 0) scale(-1 1)"` : '';
+    // Beschriftungen beim Spiegeln wieder lesbar machen
+    if (E.links) s = s.replace(/<text ([^>]*)x="([\d.]+)"([^>]*)>/g, (m, p1, x, p3) => `<text ${p1}x="${x}"${p3} transform="translate(${2 * x} 0) scale(-1 1)">`);
+    return `<svg class="griff" id="${id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Griffbild ${name}"><g ${spiegel}>${s}</g></svg>`;
+  }
+  // hoch: klassisches Akkord-Diagramm, Saiten senkrecht, Sattel oben
+  const W = 230, H = 270, x0 = 40, y0 = 52, sa = 30, bh = 46;
+  const xSaite = (i) => x0 + (E.links ? 5 - i : i) * sa, yBund = (b) => y0 + b * bh;
+  s += `<rect class="holz" x="${x0 - 12}" y="${y0}" width="${5 * sa + 24}" height="${bunde * bh}" rx="4"/>`;
+  s += `<rect class="sattel" x="${x0 - 14}" y="${y0 - 7}" width="${5 * sa + 28}" height="9" rx="2"/>`;
+  for (let b = 1; b <= bunde; b++) s += `<line class="bundstab" x1="${x0 - 12}" y1="${yBund(b)}" x2="${x0 + 5 * sa + 12}" y2="${yBund(b)}"/>`;
+  SAITEN.forEach((n, i) => {
+    s += `<line class="saite" data-s="${i}" x1="${xSaite(i)}" y1="${y0}" x2="${xSaite(i)}" y2="${yBund(bunde)}" stroke-width="${3.4 - i * 0.45}"/>`;
+    s += `<text class="beschr" x="${xSaite(i)}" y="${H - 6}" text-anchor="middle">${n}</text>`;
+    const f = a.bund[i];
+    if (f === null) s += `<text x="${xSaite(i)}" y="${y0 - 18}" text-anchor="middle" font-size="19" font-weight="900" fill="#ef6a5b">✕</text>`;
+    else if (f === 0) s += `<circle cx="${xSaite(i)}" cy="${y0 - 24}" r="7" fill="none" stroke="#5fd08c" stroke-width="3"/>`;
+  });
+  for (let b = 1; b <= bunde; b++) s += `<text class="beschr" x="${x0 - 22}" y="${yBund(b - 0.5) + 5}" text-anchor="end">${b}</text>`;
+  if (a.barre) {
+    const b = a.barre, xa = Math.min(xSaite(b.von), xSaite(b.bis)), xb = Math.max(xSaite(b.von), xSaite(b.bis));
+    s += `<rect class="f${b.finger}" x="${xa - 13}" y="${yBund(b.bund - 0.5) - 13}" width="${xb - xa + 26}" height="26" rx="13" opacity=".9"/>`;
+  }
+  a.bund.forEach((f, i) => {
+    if (!f) return;
+    const fi = a.finger[i];
+    s += `<circle class="f${fi}" cx="${xSaite(i)}" cy="${yBund(f - 0.5)}" r="13" stroke="#1c1410" stroke-width="2"/>`;
+    s += `<text x="${xSaite(i)}" y="${yBund(f - 0.5) + 5.5}" text-anchor="middle" font-size="15" font-weight="900" fill="#10141c">${fi}</text>`;
+  });
+  return `<svg class="griff" id="${id}" viewBox="0 0 ${W} ${H}" style="max-width:${opt.max || 260}px;margin:0 auto" role="img" aria-label="Griffbild ${name}">${s}</svg>`;
+}
+
+const LEGENDE = `<div class="legende" aria-label="Finger-Farben">
+  <span><i style="background:var(--f1)"></i>1 Zeigefinger</span>
+  <span><i style="background:var(--f2)"></i>2 Mittelfinger</span>
+  <span><i style="background:var(--f3)"></i>3 Ringfinger</span>
+  <span><i style="background:var(--f4)"></i>4 kleiner Finger</span>
+  <span><b style="color:#5fd08c">○</b> leer mitspielen</span>
+  <span><b style="color:#ef6a5b">✕</b> nicht anschlagen</span>
+</div>`;
+
+function griffSchritte(name) {
+  const a = AKKORDE[name];
+  const liste = [];
+  a.bund.forEach((f, i) => { if (f) liste.push({ i, f, fi: a.finger[i] }); });
+  liste.sort((x, y) => x.fi - y.fi || y.i - x.i);
+  const gesehen = new Set();
+  const zeilen = [];
+  for (const p of liste) {
+    if (a.barre && p.fi === a.barre.finger) {
+      if (gesehen.has('barre')) continue;
+      gesehen.add('barre');
+      zeilen.push(`<b style="color:var(--f${p.fi})">${FINGERNAME[p.fi]}</b> legt sich flach über die <b>${SAITEN[a.barre.von]}- und ${SAITEN[a.barre.bis]}-Saite</b> im <b>${p.f}. Bund</b>.`);
+      continue;
+    }
+    zeilen.push(`<b style="color:var(--f${p.fi})">${FINGERNAME[p.fi]}</b> auf die <b>${SAITEN[p.i]}-Saite</b>, <b>${p.f}. Bund</b>.`);
+  }
+  const weg = a.bund.map((f, i) => f === null ? SAITEN[i] : null).filter(Boolean);
+  if (weg.length) zeilen.push(`Nicht anschlagen: <b style="color:#ef6a5b">${weg.join(', ')}</b>.`);
+  return `<ol class="schritte">${zeilen.map(z => `<li>${z}</li>`).join('')}</ol>`;
+}
+
+// ---------- Klang: gezupfte Saite (Karplus-Strong) ----------
+let ac;
+function audio() { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
+const GRUNDTON = [82.41, 110.0, 146.83, 196.0, 246.94, 329.63];
+const puffer = new Map();
+function zupfPuffer(freq) {
+  const c = audio(), key = Math.round(freq * 10);
+  if (puffer.has(key)) return puffer.get(key);
+  const sr = c.sampleRate, n = Math.floor(sr * 2.4), buf = c.createBuffer(1, n, sr), d = buf.getChannelData(0);
+  const N = Math.max(2, Math.round(sr / freq)), ring = new Float32Array(N);
+  for (let i = 0; i < N; i++) ring[i] = Math.random() * 2 - 1;
+  let idx = 0;
+  for (let i = 0; i < n; i++) {
+    const a = ring[idx], b = ring[(idx + 1) % N];
+    d[i] = a;
+    ring[idx] = 0.4985 * (a + b);
+    idx = (idx + 1) % N;
+  }
+  puffer.set(key, buf);
+  return buf;
+}
+function zupfe(freq, wann = 0, laut = 0.28) {
+  try {
+    const c = audio(), q = c.createBufferSource(), g = c.createGain();
+    q.buffer = zupfPuffer(freq);
+    g.gain.value = laut;
+    q.connect(g).connect(c.destination);
+    q.start(c.currentTime + wann);
+  } catch { /* ohne Ton */ }
+}
+function anschlagen(name, richtung = 'ab', laut = 0.24, kurz = false) {
+  const a = AKKORDE[name];
+  if (!a) return;
+  const kapo = 0;  // Klang ohne Kapodaster, damit die Griffe vertraut klingen
+  const reihenfolge = richtung === 'ab' ? [0, 1, 2, 3, 4, 5] : [5, 4, 3, 2, 1, 0];
+  let k = 0;
+  for (const i of reihenfolge) {
+    const f = a.bund[i];
+    if (f === null) continue;
+    if (kurz && richtung === 'auf' && k > 3) break;
+    zupfe(GRUNDTON[i] * Math.pow(2, (f + kapo) / 12), k * (kurz ? 0.012 : 0.028), laut);
+    k++;
+  }
+  document.querySelectorAll('.griff .saite').forEach(l => { l.classList.remove('schwingt'); void l.getBoundingClientRect(); l.classList.add('schwingt'); });
+}
+function klick(wann, betont) {
+  try {
+    const c = audio(), o = c.createOscillator(), g = c.createGain();
+    o.frequency.value = betont ? 1600 : 1000;
+    g.gain.setValueAtTime(0.0001, wann);
+    g.gain.exponentialRampToValueAtTime(betont ? 0.35 : 0.2, wann + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, wann + 0.05);
+    o.connect(g).connect(c.destination);
+    o.start(wann); o.stop(wann + 0.06);
+  } catch { /* ohne Ton */ }
+}
+
+// ---------- Taktgeber ----------
+// Plant Schläge genau voraus und ruft für jeden Schlag rueckruf(nr, wann) auf.
+const Takt = {
+  laeuft: false,
+  start(bpm, proSchlag, rueckruf) {
+    this.stop();
+    const c = audio();
+    this.laeuft = true;
+    this.intervall = 60 / bpm / proSchlag;
+    this.naechste = c.currentTime + 0.12;
+    this.nr = 0;
+    this.timer = setInterval(() => {
+      while (this.naechste < c.currentTime + 0.12) {
+        const nr = this.nr, wann = this.naechste;
+        rueckruf(nr, wann);
+        this.nr++;
+        this.naechste += this.intervall;
+      }
+    }, 25);
+  },
+  stop() { this.laeuft = false; clearInterval(this.timer); },
+};
+const zeigeZu = (wann, f) => { const v = Math.max(0, (wann - audio().currentTime) * 1000); setTimeout(f, v); };
+
+// ---------- Seiten ----------
+const SEITEN = [
+  ['start', 'Start'],
+  ['akkorde', 'Akkorde'],
+  ['wechsel', 'Wechseln'],
+  ['rhythmus', 'Rhythmus'],
+  ['stimmen', 'Stimmen'],
+  ['song', 'Song'],
+];
+let seite = 'start';
+
+function navZeichnen() {
+  document.getElementById('nav').innerHTML = SEITEN.map(([id, t]) => `<button data-s="${id}" class="${id === seite ? 'aktiv' : ''}">${t}</button>`).join('');
+  document.querySelectorAll('#nav button').forEach(b => b.onclick = () => zeige(b.dataset.s));
+  document.getElementById('ansichtKnopf').textContent = E.ansicht === 'quer' ? '↔ Spieler-Blick' : '↕ Diagramm';
+  document.getElementById('handKnopf').textContent = E.links ? '🫲 Linkshänder' : 'Rechtshänder 🫱';
+}
+function zeige(s, opt) {
+  Takt.stop();
+  stimmerStop();
+  seite = s;
+  navZeichnen();
+  window.scrollTo(0, 0);
+  ({ start: startSeite, akkorde: akkordSeite, wechsel: wechselSeite, rhythmus: rhythmusSeite, stimmen: stimmSeite, song: songSeite })[s](opt);
+}
+document.getElementById('ansichtKnopf').onclick = () => { E.ansicht = E.ansicht === 'quer' ? 'hoch' : 'quer'; sichern(); zeige(seite); };
+document.getElementById('handKnopf').onclick = () => { E.links = !E.links; sichern(); zeige(seite); };
+
+// ---------- Start ----------
+const WEG = [
+  ['stimmen', 'Gitarre stimmen', 'Jedes Mal vor dem Üben – sonst klingt auch ein richtiger Griff falsch.'],
+  ['akkorde', 'Griffbild verstehen', 'Saiten, Bünde und Finger-Farben kennenlernen.'],
+  ['akkorde:Em', 'Erster Akkord: Em', 'Nur zwei Finger – zum Warmwerden.'],
+  ['akkorde:C', 'Akkord C', 'Der wichtigste Akkord für dein Lied.'],
+  ['akkorde:G', 'Akkord G', ''],
+  ['akkorde:Am7', 'Akkord Am7 und Am', 'Am7 ist die leichtere Version.'],
+  ['akkorde:Fmaj7', 'Akkord F (erst Fmaj7)', 'F ist der schwerste – starte mit der leichten Variante.'],
+  ['wechsel', 'Wechsel üben: C ↔ G, G ↔ Am, Am ↔ F', 'Langsam mit 50–60 Schlägen pro Minute.'],
+  ['rhythmus', 'Rhythmus: Schlagmuster', 'Erst nur Abschläge, dann das Pop-Muster.'],
+  ['song', 'Das Lied spielen und singen', 'Akkordblatt einfügen, Kapodaster in Bund 1.'],
+];
+function startSeite() {
+  const erledigt = WEG.filter((_, i) => E.erledigt[i]).length;
+  bild.innerHTML = `
+    <section class="held">
+      <div>
+        <h1>Dein Weg zu „One Call Away“</h1>
+        <p class="leise">Ohne Noten: Du siehst genau, welcher Finger wohin gehört, und hörst, wie es klingen soll. Arbeite den Weg Schritt für Schritt ab – lieber jeden Tag 15 Minuten als einmal pro Woche zwei Stunden.</p>
+        <p><b>${erledigt} von ${WEG.length}</b> Schritten geschafft.</p>
+      </div>
+      ${GITARRE_SVG}
+    </section>
+    <div class="karte info-lied">
+      <h2>Das brauchst du für dein Lied</h2>
+      <div class="chips" style="margin:8px 0 10px">${['C', 'G', 'Am7', 'Am', 'F'].map(a => `<button class="chip" data-a="${a}">${a}</button>`).join('')}</div>
+      <p class="klein">Laut gängigen Akkordblättern wird „One Call Away“ mit <b>Kapodaster im 1. Bund</b> und diesen Griffen gespielt (Originaltonart Des-Dur, etwa 91 Schläge pro Minute). Den <b>Kapodaster</b> brauchst du nur, wenn du genau in der Tonart der Aufnahme mitspielen willst – zum Singen ohne Aufnahme kannst du ihn auch weglassen oder an deine Stimme anpassen.</p>
+    </div>
+    <ol class="weg">${WEG.map(([ziel, titel, text], i) => `
+      <li class="${E.erledigt[i] ? 'erledigt' : ''}">
+        <span class="nr">${i + 1}</span>
+        <button class="was" data-ziel="${ziel}" style="text-align:left"><strong>${titel}</strong>${text ? `<span>${text}</span>` : ''}</button>
+        <button class="haken" data-i="${i}" aria-label="Schritt ${i + 1} erledigt">${E.erledigt[i] ? '✓' : ''}</button>
+      </li>`).join('')}
+    </ol>
+    <div class="karte" style="margin-top:16px">
+      <h2>Aufkleber auf der Gitarre?</h2>
+      <p class="klein">Der <b>Steg</b> ist unten am Korpus – dort helfen Markierungen nicht. Sinnvoll sind kleine, ablösbare Farbpunkte an der <b>seitlichen Kante des Halses</b> bei Bund 1, 2 und 3, damit du die Bünde schneller findest. Nimm dieselben Farben wie die Finger in dieser App. Auf das Griffbrett selbst lieber nichts kleben: Die Akkorde benutzen dieselben Stellen, und die Punkte nutzen sich unter den Saiten ab.</p>
+    </div>`;
+  bild.querySelectorAll('[data-a]').forEach(b => b.onclick = () => zeige('akkorde', b.dataset.a));
+  bild.querySelectorAll('[data-ziel]').forEach(b => b.onclick = () => { const [s, a] = b.dataset.ziel.split(':'); zeige(s, a); });
+  bild.querySelectorAll('.haken').forEach(b => b.onclick = () => { const i = +b.dataset.i; E.erledigt[i] = !E.erledigt[i]; sichern(); startSeite(); });
+}
+
+const GITARRE_SVG = `<svg viewBox="0 0 320 200" role="img" aria-label="Gitarre mit beschrifteten Teilen">
+  <path d="M40,100 C40,52 92,40 116,64 C128,76 140,76 152,64 C176,40 228,52 228,100 C228,148 176,160 152,136 C140,124 128,124 116,136 C92,160 40,148 40,100 Z" fill="#c8843a" stroke="#6b3d14" stroke-width="3"/>
+  <circle cx="150" cy="100" r="20" fill="#2a1a0e"/>
+  <rect x="78" y="90" width="18" height="20" rx="3" fill="#3b2412"/>
+  <rect x="160" y="91" width="122" height="18" fill="#4a2f19"/>
+  ${[176, 196, 214, 231, 246, 260, 272].map(x => `<line x1="${x}" y1="91" x2="${x}" y2="109" stroke="#d8d0c0" stroke-width="1.6"/>`).join('')}
+  <rect x="282" y="86" width="30" height="28" rx="5" fill="#3b2412"/>
+  ${[0, 1, 2, 3, 4, 5].map(i => `<line x1="86" y1="${93 + i * 2.8}" x2="300" y2="${93 + i * 2.8}" stroke="#eee" stroke-width="${1.1 - i * 0.1}"/>`).join('')}
+  <g font-size="11" font-weight="800" fill="#f6ece2" font-family="sans-serif">
+    <text x="62" y="186">Steg</text><line x1="80" y1="176" x2="86" y2="112" stroke="#f6ece2"/>
+    <text x="196" y="74">Griffbrett mit Bünden</text><line x1="230" y1="78" x2="230" y2="90" stroke="#f6ece2"/>
+    <text x="268" y="140">Kopf</text><line x1="290" y1="130" x2="296" y2="114" stroke="#f6ece2"/>
+    <text x="128" y="180">Schallloch</text><line x1="150" y1="170" x2="150" y2="120" stroke="#f6ece2"/>
+  </g>
+</svg>`;
+
+// ---------- Akkorde ----------
+function akkordSeite(gewaehlt) {
+  let aktiv = gewaehlt && AKKORDE[gewaehlt] ? gewaehlt : (E.letzterAkkord || 'C');
+  const zeichnen = () => {
+    E.letzterAkkord = aktiv; sichern();
+    const a = AKKORDE[aktiv];
+    bild.innerHTML = `
+      <h1>Akkorde lernen</h1>
+      <p class="leise">Tippe einen Akkord an. ★ = brauchst du für dein Lied. Mit „Anhören“ hörst du, wie er klingen soll.</p>
+      <div class="akkord-auswahl">${Object.keys(AKKORDE).map(n => `<button data-n="${n}" class="${n === aktiv ? 'aktiv' : ''} ${LIED_AKKORDE.includes(n) ? 'lied' : ''}">${n}</button>`).join('')}</div>
+      <div class="karte akkord-karte">
+        <div class="akkord-kopf"><span class="name">${aktiv}</span><span class="leise">${E.ansicht === 'quer' ? 'So siehst du den Hals, wenn du von oben draufschaust' : 'Klassisches Akkord-Diagramm'}</span></div>
+        ${griffbild(aktiv, { max: 300 })}
+        ${LEGENDE}
+        <div class="reihe" style="margin-top:14px">
+          <button class="knopf" id="hoeren">🔊 Anhören</button>
+          <button class="knopf zweit" id="einzeln">Saite für Saite</button>
+          <button class="knopf zweit" id="ueben">In Wechsel-Trainer üben</button>
+        </div>
+      </div>
+      <div class="raster">
+        <div class="karte"><h3>So greifst du ${aktiv}</h3>${griffSchritte(aktiv)}${a.tipp ? `<p class="klein" style="margin-top:8px">💡 ${a.tipp}</p>` : ''}</div>
+        <div class="karte"><h3>Klingt es sauber?</h3>
+          <ol class="schritte">
+            <li>Mit den <b>Fingerkuppen</b> drücken, nicht mit den flachen Fingern.</li>
+            <li>Finger <b>dicht hinter den Bundstab</b> setzen, nicht genau darauf.</li>
+            <li>„Saite für Saite“ antippen und jede Saite einzeln anzupfen: Schnarrt eine, etwas fester drücken oder den Finger steiler stellen.</li>
+            <li>Daumen hinten am Hals, Handgelenk locker.</li>
+          </ol>
+        </div>
+      </div>
+      <details class="karte"><summary><b>Wie lese ich das Griffbild?</b></summary>
+        <ul class="schritte">
+          <li>Die <b>Linien</b> sind die sechs Saiten. <b>E</b> ist die dickste (tiefste) Saite, <b>e</b> die dünnste.</li>
+          <li>Die <b>Felder</b> zwischen den Metallstäbchen heißen <b>Bünde</b>. Der 1. Bund ist direkt am Kopf der Gitarre.</li>
+          <li>Ein <b>farbiger Punkt mit Zahl</b> zeigt, welcher Finger wo drückt.</li>
+          <li>In der Ansicht „Spieler-Blick“ ist alles so dargestellt, wie du beim Spielen von oben auf den Hals schaust. Mit „Diagramm“ siehst du die Ansicht aus Liederbüchern.</li>
+        </ul>
+      </details>`;
+    bild.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { aktiv = b.dataset.n; zeichnen(); anschlagen(aktiv); });
+    document.getElementById('hoeren').onclick = () => anschlagen(aktiv);
+    document.getElementById('einzeln').onclick = () => {
+      let k = 0;
+      a.bund.forEach((f, i) => { if (f !== null) { zupfe(GRUNDTON[i] * Math.pow(2, f / 12), k * 0.55, 0.32); k++; } });
+    };
+    document.getElementById('ueben').onclick = () => { const andere = aktiv === 'C' ? 'G' : 'C'; E.paar = [aktiv, andere]; sichern(); zeige('wechsel'); };
+  };
+  zeichnen();
+}
+
+// ---------- Wechsel-Trainer ----------
+const UEBUNGEN = [['C', 'G'], ['G', 'Am7'], ['Am7', 'Fmaj7'], ['Fmaj7', 'C'], ['C', 'G', 'Am7', 'Fmaj7'], ['C', 'G', 'Am', 'F']];
+function wechselSeite() {
+  let folge = E.paar && E.paar.length ? E.paar.filter(n => AKKORDE[n]) : ['C', 'G'];
+  if (folge.length < 2) folge = ['C', 'G'];
+  let laeuft = false, wechsel = 0, idx = 0;
+  const zeichnen = () => {
+    bild.innerHTML = `
+      <h1>Akkordwechsel üben</h1>
+      <p class="leise">Der Wechsel ist das Schwerste. Bei jedem grünen Punkt schlägst du an. Kurz bevor der neue Akkord kommt, schon umgreifen.</p>
+      <div class="karte">
+        <div class="chips" style="margin-bottom:10px">${UEBUNGEN.map((u, i) => `<button class="chip ${u.join() === folge.join() ? 'aktiv' : ''}" data-u="${i}">${u.join(' → ')}</button>`).join('')}</div>
+        <div class="regler"><label for="tempo">Tempo</label><input type="range" id="tempo" min="40" max="100" step="2" value="${E.tempo}"><output id="tempoZahl">${E.tempo} BPM</output></div>
+        <div class="regler"><label for="takt">Schläge pro Akkord</label>
+          <select id="takt">${[2, 4, 8].map(n => `<option ${n === E.takt ? 'selected' : ''}>${n}</option>`).join('')}</select>
+          <label><input type="checkbox" id="mitklang" ${E.mitklang !== false ? 'checked' : ''}> Akkord mitspielen</label></div>
+      </div>
+      <div class="karte trainer">
+        <div class="jetzt" style="text-align:center"><div class="name" id="jetztName">${folge[0]}</div><div id="jetztBild">${griffbild(folge[0], { max: 300 })}</div></div>
+        <div class="naechster" style="text-align:center"><div class="leise">als Nächstes</div><div class="name" id="naechsterName">${folge[1]}</div><div id="naechsterBild">${griffbild(folge[1], { max: 170 })}</div></div>
+      </div>
+      <div class="schlaege" id="schlaege">${Array.from({ length: E.takt }, (_, i) => `<i class="${i === 0 ? 'eins' : ''}"></i>`).join('')}</div>
+      <div class="reihe" style="justify-content:center">
+        <button class="knopf gross" id="startStop">▶ Start</button>
+        <span class="leise" id="zaehler">Wechsel: 0</span>
+      </div>`;
+    bild.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { folge = UEBUNGEN[+b.dataset.u]; E.paar = folge; sichern(); Takt.stop(); laeuft = false; zeichnen(); });
+    const tempo = document.getElementById('tempo');
+    tempo.oninput = () => { E.tempo = +tempo.value; document.getElementById('tempoZahl').textContent = `${E.tempo} BPM`; sichern(); if (laeuft) starten(); };
+    document.getElementById('takt').onchange = (e) => { E.takt = +e.target.value; sichern(); Takt.stop(); laeuft = false; zeichnen(); };
+    document.getElementById('mitklang').onchange = (e) => { E.mitklang = e.target.checked; sichern(); };
+    document.getElementById('startStop').onclick = () => { if (laeuft) { Takt.stop(); laeuft = false; document.getElementById('startStop').textContent = '▶ Start'; } else starten(); };
+  };
+  const starten = () => {
+    laeuft = true; idx = 0;
+    document.getElementById('startStop').textContent = '■ Stopp';
+    Takt.start(E.tempo, 1, (nr, wann) => {
+      const schlag = nr % E.takt;
+      // 1 Takt Einzählen
+      const einzaehlen = nr < E.takt;
+      klick(wann, schlag === 0);
+      if (!einzaehlen && schlag === 0) {
+        const akk = folge[idx % folge.length];
+        if (E.mitklang !== false) setTimeout(() => anschlagen(akk, 'ab', 0.16), Math.max(0, (wann - audio().currentTime) * 1000));
+      }
+      zeigeZu(wann, () => {
+        const punkte = document.querySelectorAll('#schlaege i');
+        punkte.forEach((p, k) => p.classList.toggle('an', k === schlag));
+        if (einzaehlen) { document.getElementById('zaehler').textContent = `Einzählen … ${E.takt - schlag}`; return; }
+        if (schlag === 0) {
+          const akk = folge[idx % folge.length], naechster = folge[(idx + 1) % folge.length];
+          document.getElementById('jetztName').textContent = akk;
+          document.getElementById('jetztBild').innerHTML = griffbild(akk, { max: 300 });
+          document.getElementById('naechsterName').textContent = naechster;
+          document.getElementById('naechsterBild').innerHTML = griffbild(naechster, { max: 170 });
+          if (idx > 0) wechsel++;
+          document.getElementById('zaehler').textContent = `Wechsel: ${wechsel}`;
+          idx++;
+        }
+      });
+    });
+  };
+  zeichnen();
+}
+
+// ---------- Rhythmus ----------
+// 8 Felder = Achtel: 1 + 2 + 3 + 4 +
+const MUSTER = {
+  vier:   { name: 'Anfänger: 4 Abschläge', felder: ['ab', '', 'ab', '', 'ab', '', 'ab', ''], text: 'Auf jede Zahl ein Schlag nach unten. Damit fängst du an.' },
+  acht:   { name: 'Ab und Auf', felder: ['ab', 'auf', 'ab', 'auf', 'ab', 'auf', 'ab', 'auf'], text: 'Die Hand schwingt gleichmäßig weiter – runter auf die Zahl, hoch auf das „und“.' },
+  pop:    { name: 'Pop-Muster', felder: ['ab', '', 'ab', 'auf', '', 'auf', 'ab', 'auf'], text: 'Das klassische Begleitmuster für viele Popsongs: „Ab – Ab-Auf – Auf-Ab-Auf“. Die Hand schwingt auch bei den Lücken weiter, trifft dann aber die Saiten nicht.' },
+  ballade:{ name: 'Ruhige Ballade', felder: ['ab', '', '', '', 'ab', '', 'ab', 'auf'], text: 'Für ruhige Stellen: lange Pause nach dem ersten Schlag.' },
+};
+function rhythmusSeite() {
+  let laeuft = false, akkord = 'C';
+  const zeichnen = () => {
+    const m = MUSTER[E.rhythmus] || MUSTER.pop;
+    bild.innerHTML = `
+      <h1>Rhythmus: Schlagmuster</h1>
+      <p class="leise">↓ = von der dicken zur dünnen Saite, ↑ = zurück. Zähle laut mit: „eins und zwei und drei und vier und“.</p>
+      <div class="karte">
+        <div class="chips" style="margin-bottom:10px">${Object.entries(MUSTER).map(([k, v]) => `<button class="chip ${k === E.rhythmus ? 'aktiv' : ''}" data-m="${k}">${v.name}</button>`).join('')}</div>
+        <p class="klein">${m.text}</p>
+        <div class="regler"><label for="tempo">Tempo</label><input type="range" id="tempo" min="40" max="100" step="2" value="${E.tempo}"><output id="tempoZahl">${E.tempo} BPM</output>
+          <label for="akk">Akkord</label><select id="akk">${LIED_AKKORDE.map(a => `<option ${a === akkord ? 'selected' : ''}>${a}</option>`).join('')}</select></div>
+      </div>
+      <div class="muster" id="muster">${m.felder.map((f, i) => `<div class="${f ? '' : 'leer'}"><span class="pfeil">${f === 'ab' ? '↓' : f === 'auf' ? '↑' : '·'}</span><span class="zaehl">${i % 2 === 0 ? i / 2 + 1 : '+'}</span></div>`).join('')}</div>
+      <div class="reihe" style="justify-content:center"><button class="knopf gross" id="startStop">▶ Start</button></div>
+      <p class="leise klein" style="text-align:center;margin-top:10px">Tipp: Erst ohne Gitarre mit der Hand auf dem Oberschenkel klopfen, dann mit gedämpften Saiten (linke Hand liegt locker auf), dann mit Akkord.</p>`;
+    bild.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { E.rhythmus = b.dataset.m; sichern(); Takt.stop(); laeuft = false; zeichnen(); });
+    const tempo = document.getElementById('tempo');
+    tempo.oninput = () => { E.tempo = +tempo.value; document.getElementById('tempoZahl').textContent = `${E.tempo} BPM`; sichern(); if (laeuft) starten(); };
+    document.getElementById('akk').onchange = (e) => { akkord = e.target.value; };
+    document.getElementById('startStop').onclick = () => { if (laeuft) { Takt.stop(); laeuft = false; document.getElementById('startStop').textContent = '▶ Start'; } else starten(); };
+  };
+  const starten = () => {
+    laeuft = true;
+    document.getElementById('startStop').textContent = '■ Stopp';
+    const m = MUSTER[E.rhythmus] || MUSTER.pop;
+    Takt.start(E.tempo, 2, (nr, wann) => {
+      const feld = nr % 8;
+      if (feld % 2 === 0) klick(wann, feld === 0);
+      const f = m.felder[feld];
+      if (f) setTimeout(() => anschlagen(akkord, f, f === 'ab' ? 0.18 : 0.12, true), Math.max(0, (wann - audio().currentTime) * 1000));
+      zeigeZu(wann, () => document.querySelectorAll('#muster div').forEach((d, k) => d.classList.toggle('an', k === feld)));
+    });
+  };
+  zeichnen();
+}
+
+// ---------- Stimmen ----------
+const STIMM = [['E', 82.41, '6. Saite (dickste)'], ['A', 110, '5. Saite'], ['D', 146.83, '4. Saite'], ['G', 196, '3. Saite'], ['H', 246.94, '2. Saite'], ['e', 329.63, '1. Saite (dünnste)']];
+let mik = null;
+function stimmerStop() {
+  if (mik) { mik.stream.getTracks().forEach(t => t.stop()); cancelAnimationFrame(mik.raf); mik = null; }
+}
+function stimmSeite() {
+  bild.innerHTML = `
+    <h1>Gitarre stimmen</h1>
+    <p class="leise">Vor jedem Üben. Stimmen heißt: an den Wirbeln am Kopf der Gitarre drehen, bis jede Saite den richtigen Ton hat.</p>
+    <div class="karte stimmer">
+      <h2>Stimmgerät mit Mikrofon</h2>
+      <div class="note" id="note">–</div>
+      <div class="rat" id="rat">Tippe auf „Mikrofon starten“ und zupfe eine Saite.</div>
+      <svg viewBox="0 0 300 70" aria-hidden="true">
+        <rect x="10" y="30" width="280" height="10" rx="5" fill="#352820"/>
+        <rect x="138" y="22" width="24" height="26" rx="6" fill="#5fd08c" opacity=".35"/>
+        <line x1="150" y1="16" x2="150" y2="54" stroke="#5fd08c" stroke-width="2"/>
+        <text x="16" y="66" fill="#c2ad9b" font-size="11" font-weight="700">zu tief</text>
+        <text x="284" y="66" fill="#c2ad9b" font-size="11" font-weight="700" text-anchor="end">zu hoch</text>
+        <circle id="zeiger" cx="150" cy="35" r="11" fill="#f2a541"/>
+      </svg>
+      <div class="reihe" style="justify-content:center;margin-top:8px"><button class="knopf" id="mikKnopf">🎤 Mikrofon starten</button></div>
+      <p class="klein leise" style="margin-top:8px">Das Mikrofon wird nur zum Erkennen der Tonhöhe benutzt – es wird nichts aufgenommen oder gesendet.</p>
+    </div>
+    <div class="karte">
+      <h2>Oder nach Gehör: Ton anhören</h2>
+      <p class="klein leise">Tippe eine Saite an, hör dir den Ton an und dreh am Wirbel, bis deine Saite gleich klingt.</p>
+      <div class="saiten-knoepfe">${STIMM.map(([n, f, t], i) => `<button data-i="${i}">${n}<small>${t}</small></button>`).join('')}</div>
+    </div>`;
+  bild.querySelectorAll('.saiten-knoepfe button').forEach(b => b.onclick = () => { zupfe(STIMM[+b.dataset.i][1], 0, 0.4); zupfe(STIMM[+b.dataset.i][1], 1.6, 0.4); });
+  document.getElementById('mikKnopf').onclick = async () => {
+    if (mik) { stimmerStop(); document.getElementById('mikKnopf').textContent = '🎤 Mikrofon starten'; return; }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+      const c = audio(), q = c.createMediaStreamSource(stream), an = c.createAnalyser();
+      an.fftSize = 4096;
+      q.connect(an);
+      mik = { stream, an, daten: new Float32Array(an.fftSize), raf: 0 };
+      document.getElementById('mikKnopf').textContent = '■ Mikrofon aus';
+      const schleife = () => {
+        if (!mik) return;
+        mik.an.getFloatTimeDomainData(mik.daten);
+        const f = tonhoehe(mik.daten, c.sampleRate);
+        if (f > 60 && f < 1000) stimmAnzeige(f);
+        mik.raf = requestAnimationFrame(schleife);
+      };
+      schleife();
+    } catch {
+      document.getElementById('rat').textContent = 'Kein Zugriff aufs Mikrofon. Bitte im Browser erlauben – oder unten nach Gehör stimmen.';
+    }
+  };
+}
+function stimmAnzeige(f) {
+  // nächste Saite suchen (auch eine Oktave darüber/darunter berücksichtigen)
+  let best = null;
+  for (const [n, sf] of STIMM) {
+    const cent = 1200 * Math.log2(f / sf);
+    if (!best || Math.abs(cent) < Math.abs(best.cent)) best = { n, cent };
+  }
+  const cent = Math.max(-50, Math.min(50, best.cent));
+  document.getElementById('note').textContent = best.n;
+  document.getElementById('zeiger').setAttribute('cx', 150 + cent * 2.6);
+  const rat = Math.abs(best.cent) < 5 ? '✓ Passt!' : best.cent < 0 ? '↑ Zu tief – Wirbel etwas fester drehen (Saite spannen)' : '↓ Zu hoch – Wirbel etwas lockern';
+  const el = document.getElementById('rat');
+  el.textContent = rat;
+  el.style.color = Math.abs(best.cent) < 5 ? 'var(--gruen)' : 'var(--text)';
+}
+// Tonhöhe per Autokorrelation
+function tonhoehe(buf, sr) {
+  let rms = 0;
+  for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
+  if (Math.sqrt(rms / buf.length) < 0.01) return -1;
+  const n = buf.length, c = new Float32Array(n);
+  for (let lag = 0; lag < n / 2; lag++) { let s = 0; for (let i = 0; i < n / 2; i++) s += buf[i] * buf[i + lag]; c[lag] = s; }
+  let d = 0; while (d < n / 2 - 1 && c[d] > c[d + 1]) d++;
+  let maxV = -1, maxP = -1;
+  for (let i = d; i < n / 2; i++) if (c[i] > maxV) { maxV = c[i]; maxP = i; }
+  if (maxP <= 0) return -1;
+  const x1 = c[maxP - 1], x2 = c[maxP], x3 = c[maxP + 1] || x2;
+  const a = (x1 + x3 - 2 * x2) / 2, b = (x3 - x1) / 2;
+  const t0 = a ? maxP - b / (2 * a) : maxP;
+  return sr / t0;
+}
+
+// ---------- Song ----------
+const VORLAGE = `# So funktioniert der Song-Modus:
+# Füge hier das Akkordblatt zu deinem Lied ein – aus deinem Liederbuch
+# oder von einer Akkord-Seite. Akkorde können über der Textzeile stehen
+# oder in eckigen Klammern im Text: [C]so wie [G]hier.
+# Zeilen mit # werden nicht angezeigt. [Strophe] allein = Überschrift.
+
+[Übungsschleife]
+C        G        Am7      F
+Hier steht später deine erste Textzeile
+C        G        F        C
+und hier die zweite
+`;
+const AKK_RE = /^\(?[A-H][#b]?(m|maj7|maj|m7|7|sus2|sus4|add9|dim|aug|6|9)*(\/[A-H][#b]?)?\)?$/;
+function istAkkordZeile(z) {
+  const t = z.trim().split(/\s+/).filter(Boolean);
+  return t.length > 0 && t.every(x => AKK_RE.test(x) || x === '|' || x === '-' || /^x\d$/.test(x));
+}
+function songAuswerten(text) {
+  const zeilen = [], folge = [];
+  for (const roh of text.split('\n')) {
+    const z = roh.replace(/\s+$/, '');
+    if (z.trim().startsWith('#')) continue;
+    if (/^\s*\[[^\]]*\]\s*$/.test(z) && !AKK_RE.test(z.trim().slice(1, -1))) { zeilen.push({ art: 'teil', text: z.trim().slice(1, -1) }); continue; }
+    if (istAkkordZeile(z)) {
+      z.trim().split(/\s+/).forEach(t => { const n = t.replace(/[()]/g, ''); if (AKK_RE.test(n)) folge.push(n); });
+      zeilen.push({ art: 'akk', text: z });
+      continue;
+    }
+    if (/\[[A-H][^\]]*\]/.test(z)) {
+      // Akkorde in Klammern: Akkordzeile darüber erzeugen
+      let akk = '', txt = '';
+      const teile = z.split(/(\[[^\]]+\])/);
+      for (const t of teile) {
+        const m = t.match(/^\[([^\]]+)\]$/);
+        if (m && AKK_RE.test(m[1])) { while (akk.length < txt.length) akk += ' '; akk += m[1] + ' '; folge.push(m[1]); }
+        else txt += t;
+      }
+      zeilen.push({ art: 'akk', text: akk.replace(/\s+$/, '') });
+      zeilen.push({ art: 'text', text: txt });
+      continue;
+    }
+    zeilen.push({ art: 'text', text: z });
+  }
+  return { zeilen, folge };
+}
+const escHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function songSeite() {
+  if (!E.songtext) E.songtext = VORLAGE;
+  let modus = 'blatt', laeuft = false, scrollTimer = null;
+  const zeichnen = () => {
+    const { zeilen, folge } = songAuswerten(E.songtext);
+    const eindeutig = [...new Set(folge.map(n => akkordFinden(n) || n))];
+    bild.innerHTML = `
+      <h1>Song-Modus</h1>
+      <div class="hinweis">Liedtexte sind urheberrechtlich geschützt – deshalb sind sie nicht in der App. Füge dein Akkordblatt einfach selbst ein. Es wird nur auf diesem Gerät gespeichert.</div>
+      <div class="karte" style="margin-top:14px">
+        <div class="reihe">
+          <button class="knopf ${modus === 'blatt' ? '' : 'zweit'}" data-m="blatt">📄 Blatt</button>
+          <button class="knopf ${modus === 'spielen' ? '' : 'zweit'}" data-m="spielen">▶ Mitspielen</button>
+          <button class="knopf ${modus === 'bearbeiten' ? '' : 'zweit'}" data-m="bearbeiten">✏️ Bearbeiten</button>
+          <label class="leise klein">Kapodaster: <select id="kapo">${[0, 1, 2, 3, 4, 5, 6, 7].map(k => `<option value="${k}" ${k === E.kapo ? 'selected' : ''}>${k === 0 ? 'ohne' : k + '. Bund'}</option>`).join('')}</select></label>
+        </div>
+        ${E.kapo ? `<p class="klein leise" style="margin:10px 0 0">📌 Klemme den Kapodaster in den <b>${E.kapo}. Bund</b>. Die Griffe bleiben genau gleich – sie klingen nur ${E.kapo === 1 ? 'einen Halbton' : E.kapo + ' Halbtöne'} höher.</p>` : ''}
+      </div>
+      <div class="karte" id="spielerKarte">
+        <h3>🎵 Original zum Mitspielen</h3>
+        <p class="klein leise">Lade deine eigene Audiodatei des Songs (z. B. MP3 oder M4A aus deiner Musiksammlung). Sie wird nur in diesem Browser abgespielt und nirgendwohin hochgeladen.</p>
+        <div class="reihe">
+          <label class="knopf zweit" style="cursor:pointer">📂 Datei wählen<input type="file" id="audioDatei" accept="audio/*" hidden></label>
+          <span class="klein leise" id="audioName">${spieler.name ? escHtml(spieler.name) : 'Noch keine Datei geladen'}</span>
+        </div>
+        <audio id="audio" controls style="width:100%;margin-top:10px;${spieler.url ? '' : 'display:none'}" ${spieler.url ? `src="${spieler.url}"` : ''}></audio>
+        <div class="regler" style="margin-top:8px">
+          <label for="geschw">Geschwindigkeit</label>
+          <input type="range" id="geschw" min="50" max="100" step="5" value="${spieler.tempo}"><output id="geschwZahl">${spieler.tempo} %</output>
+        </div>
+        <div class="reihe klein">
+          <button class="knopf zweit" id="markA">A setzen</button>
+          <button class="knopf zweit" id="markB">B setzen</button>
+          <button class="knopf zweit" id="schleife">${spieler.a !== null && spieler.b !== null ? '🔁 Schleife aus' : '🔁 Schleife A–B'}</button>
+          <span class="leise" id="schleifeInfo">${spieler.a !== null ? `A ${zeit(spieler.a)}` : ''}${spieler.b !== null ? ` · B ${zeit(spieler.b)}` : ''}</span>
+        </div>
+        <p class="klein leise" style="margin:8px 0 0">Tipp: Mit einer Schleife (A–B) übst du eine schwierige Stelle immer wieder. Langsamer abspielen ändert die Tonhöhe nicht.</p>
+      </div>
+      <div id="songInhalt"></div>`;
+    bild.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { Takt.stop(); clearInterval(scrollTimer); laeuft = false; modus = b.dataset.m; zeichnen(); });
+    document.getElementById('kapo').onchange = (e) => { E.kapo = +e.target.value; sichern(); zeichnen(); };
+    spielerVerbinden(zeichnen);
+    const inhalt = document.getElementById('songInhalt');
+
+    if (modus === 'bearbeiten') {
+      inhalt.innerHTML = `<div class="karte"><textarea id="songtext" spellcheck="false" aria-label="Akkordblatt">${escHtml(E.songtext)}</textarea>
+        <div class="reihe" style="margin-top:10px"><button class="knopf" id="speichern">Speichern</button><button class="knopf zweit" id="vorlage">Vorlage wiederherstellen</button></div></div>`;
+      document.getElementById('speichern').onclick = () => { E.songtext = document.getElementById('songtext').value; sichern(); modus = 'blatt'; zeichnen(); };
+      document.getElementById('vorlage').onclick = () => { if (confirm('Dein Text wird durch die Vorlage ersetzt. Fortfahren?')) { E.songtext = VORLAGE; sichern(); zeichnen(); } };
+      return;
+    }
+
+    const akkUebersicht = `<div class="karte"><h3>Akkorde in diesem Lied</h3><div class="song-akkorde">${eindeutig.map(n => `<div class="mini"><div class="name">${n}</div>${AKKORDE[n] ? griffbild(n, { ansicht: 'hoch', max: 120 }) : '<div class="klein leise">kein Griffbild</div>'}</div>`).join('')}</div>
+      <p class="klein leise" style="margin-top:8px">Tipp: Statt F kannst du anfangs Fmaj7 spielen, statt Am auch Am7.</p></div>`;
+
+    if (modus === 'blatt') {
+      inhalt.innerHTML = akkUebersicht + `<div class="karte">
+        <div class="reihe" style="margin-bottom:10px"><button class="knopf zweit" id="scroll">⏬ Automatisch scrollen</button><label class="klein leise">Tempo <input type="range" id="scrollTempo" min="1" max="10" value="${E.scrollTempo || 4}"></label><button class="knopf zweit" id="gross">A+</button></div>
+        <div class="blatt ${E.grossSchrift ? 'gross' : ''}" id="blatt">${zeilen.map(z => z.art === 'teil' ? `<div class="teil">${escHtml(z.text)}</div>`
+          : z.art === 'akk' ? `<div class="zeile akk-zeile">${escHtml(z.text).replace(/(\S+)/g, '<span class="akk" data-a="$1">$1</span>')}</div>`
+          : `<div class="zeile">${escHtml(z.text) || '&nbsp;'}</div>`).join('')}</div></div>`;
+      inhalt.querySelectorAll('.akk').forEach(s => s.onclick = () => akkordPopup(s.dataset.a));
+      document.getElementById('gross').onclick = () => { E.grossSchrift = !E.grossSchrift; sichern(); document.getElementById('blatt').classList.toggle('gross', E.grossSchrift); };
+      document.getElementById('scrollTempo').oninput = (e) => { E.scrollTempo = +e.target.value; sichern(); };
+      document.getElementById('scroll').onclick = (e) => {
+        if (scrollTimer) { clearInterval(scrollTimer); scrollTimer = null; e.target.textContent = '⏬ Automatisch scrollen'; return; }
+        e.target.textContent = '■ Scrollen stoppen';
+        scrollTimer = setInterval(() => { if (seite !== 'song') return clearInterval(scrollTimer); window.scrollBy(0, (E.scrollTempo || 4) * 0.35); }, 30);
+      };
+      return;
+    }
+
+    // Mitspielen: Akkordfolge mit Taktgeber
+    const spielFolge = folge.map(n => akkordFinden(n) || n);
+    inhalt.innerHTML = spielFolge.length ? `
+      <div class="karte">
+        <div class="regler"><label for="tempo">Tempo</label><input type="range" id="tempo" min="40" max="100" step="2" value="${E.tempo}"><output id="tempoZahl">${E.tempo} BPM</output>
+          <label for="takt">Schläge pro Akkord</label><select id="takt">${[2, 4, 8].map(n => `<option ${n === E.takt ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+        <p class="klein leise">Spielt die Akkorde in der Reihenfolge deines Blatts. Das Original hat etwa 91 BPM – starte deutlich langsamer.</p>
+      </div>
+      <div class="karte trainer">
+        <div class="jetzt" style="text-align:center"><div class="name" id="jetztName">${spielFolge[0]}</div><div id="jetztBild">${griffbild(spielFolge[0], { max: 300 })}</div></div>
+        <div class="naechster" style="text-align:center"><div class="leise">als Nächstes</div><div class="name" id="naechsterName">${spielFolge[1] || spielFolge[0]}</div><div id="naechsterBild">${griffbild(spielFolge[1] || spielFolge[0], { max: 170 })}</div></div>
+      </div>
+      <div class="schlaege" id="schlaege">${Array.from({ length: E.takt }, (_, i) => `<i class="${i === 0 ? 'eins' : ''}"></i>`).join('')}</div>
+      <div class="reihe" style="justify-content:center"><button class="knopf gross" id="startStop">▶ Start</button><span class="leise" id="pos">1 / ${spielFolge.length}</span></div>`
+      : '<div class="karte">In deinem Blatt wurden noch keine Akkorde gefunden. Tippe auf „Bearbeiten“.</div>';
+    if (!spielFolge.length) return;
+    const tempo = document.getElementById('tempo');
+    tempo.oninput = () => { E.tempo = +tempo.value; document.getElementById('tempoZahl').textContent = `${E.tempo} BPM`; sichern(); };
+    document.getElementById('takt').onchange = (e) => { E.takt = +e.target.value; sichern(); zeichnen(); };
+    document.getElementById('startStop').onclick = () => {
+      if (laeuft) { Takt.stop(); laeuft = false; document.getElementById('startStop').textContent = '▶ Start'; return; }
+      laeuft = true; let idx = 0;
+      document.getElementById('startStop').textContent = '■ Stopp';
+      Takt.start(E.tempo, 1, (nr, wann) => {
+        const schlag = nr % E.takt, einzaehlen = nr < E.takt;
+        klick(wann, schlag === 0);
+        zeigeZu(wann, () => {
+          document.querySelectorAll('#schlaege i').forEach((p, k) => p.classList.toggle('an', k === schlag));
+          if (einzaehlen || schlag !== 0) return;
+          if (idx >= spielFolge.length) { Takt.stop(); laeuft = false; document.getElementById('startStop').textContent = '▶ Nochmal'; return; }
+          const akk = spielFolge[idx], naechster = spielFolge[idx + 1] || '–';
+          document.getElementById('jetztName').textContent = akk;
+          document.getElementById('jetztBild').innerHTML = griffbild(akk, { max: 300 });
+          document.getElementById('naechsterName').textContent = naechster;
+          document.getElementById('naechsterBild').innerHTML = naechster === '–' ? '' : griffbild(naechster, { max: 170 });
+          document.getElementById('pos').textContent = `${idx + 1} / ${spielFolge.length}`;
+          idx++;
+        });
+      });
+    };
+  };
+  zeichnen();
+}
+
+// ---------- Eigene Audiodatei abspielen (bleibt im Browser) ----------
+const spieler = { url: null, name: '', tempo: 100, a: null, b: null, zeitpunkt: 0 };
+const zeit = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+function spielerVerbinden(neuZeichnen) {
+  const au = document.getElementById('audio');
+  au.preservesPitch = true; au.mozPreservesPitch = true; au.webkitPreservesPitch = true;
+  au.playbackRate = spieler.tempo / 100;
+  if (spieler.zeitpunkt) au.currentTime = spieler.zeitpunkt;
+  au.ontimeupdate = () => {
+    spieler.zeitpunkt = au.currentTime;
+    if (spieler.a !== null && spieler.b !== null && au.currentTime >= spieler.b) au.currentTime = spieler.a;
+  };
+  document.getElementById('audioDatei').onchange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (spieler.url) URL.revokeObjectURL(spieler.url);
+    Object.assign(spieler, { url: URL.createObjectURL(f), name: f.name, a: null, b: null, zeitpunkt: 0 });
+    neuZeichnen();
+  };
+  const g = document.getElementById('geschw');
+  g.oninput = () => { spieler.tempo = +g.value; au.playbackRate = spieler.tempo / 100; document.getElementById('geschwZahl').textContent = `${spieler.tempo} %`; };
+  const info = () => { document.getElementById('schleifeInfo').textContent = `${spieler.a !== null ? `A ${zeit(spieler.a)}` : ''}${spieler.b !== null ? ` · B ${zeit(spieler.b)}` : ''}`; };
+  document.getElementById('markA').onclick = () => { spieler.a = au.currentTime; if (spieler.b !== null && spieler.b <= spieler.a) spieler.b = null; info(); };
+  document.getElementById('markB').onclick = () => { if (spieler.a !== null && au.currentTime > spieler.a) { spieler.b = au.currentTime; au.currentTime = spieler.a; } info(); document.getElementById('schleife').textContent = '🔁 Schleife aus'; };
+  document.getElementById('schleife').onclick = () => {
+    if (spieler.a !== null && spieler.b !== null) { spieler.a = null; spieler.b = null; document.getElementById('schleife').textContent = '🔁 Schleife A–B'; info(); }
+    else alert('Spiel das Lied ab: Tippe an der Startstelle auf „A setzen“ und an der Endstelle auf „B setzen“.');
+  };
+}
+
+function akkordPopup(roh) {
+  const n = akkordFinden(roh.replace(/[()]/g, ''));
+  const p = document.getElementById('popup');
+  p.innerHTML = `<div class="karte"><div class="akkord-kopf"><span class="name">${roh}</span>${n && n !== roh ? `<span class="leise">gespielt als ${n}</span>` : ''}</div>
+    ${n ? griffbild(n, { max: 280 }) + griffSchritte(n) : '<p>Für diesen Akkord habe ich noch kein Griffbild.</p>'}
+    <div class="reihe" style="margin-top:10px">${n ? '<button class="knopf" id="popHoeren">🔊 Anhören</button>' : ''}<button class="knopf zweit" id="popZu">Schließen</button></div></div>`;
+  p.className = 'popup an';
+  if (n) document.getElementById('popHoeren').onclick = () => anschlagen(n);
+  document.getElementById('popZu').onclick = () => { p.className = 'popup'; };
+  p.onclick = (e) => { if (e.target === p) p.className = 'popup'; };
+}
+
+// ---------- Start ----------
+zeige('start');
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
